@@ -14,16 +14,242 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      applications: {
+        Row: {
+          age: number | null
+          created_at: string | null
+          diagnosis: string | null
+          email: string
+          id: string
+          message: string | null
+          name: string
+          phone: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string | null
+          support_needed: string
+          treatment_status: string | null
+        }
+        Insert: {
+          age?: number | null
+          created_at?: string | null
+          diagnosis?: string | null
+          email: string
+          id?: string
+          message?: string | null
+          name: string
+          phone: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string | null
+          support_needed: string
+          treatment_status?: string | null
+        }
+        Update: {
+          age?: number | null
+          created_at?: string | null
+          diagnosis?: string | null
+          email?: string
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string | null
+          support_needed?: string
+          treatment_status?: string | null
+        }
+        Relationships: []
+      }
+      competition_entries: {
+        Row: {
+          competition_id: string
+          created_at: string | null
+          email: string
+          id: string
+          name: string
+          payment_proof_url: string | null
+          phone: string
+          ticket_number: string
+        }
+        Insert: {
+          competition_id: string
+          created_at?: string | null
+          email: string
+          id?: string
+          name: string
+          payment_proof_url?: string | null
+          phone: string
+          ticket_number: string
+        }
+        Update: {
+          competition_id?: string
+          created_at?: string | null
+          email?: string
+          id?: string
+          name?: string
+          payment_proof_url?: string | null
+          phone?: string
+          ticket_number?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "competition_entries_competition_id_fkey"
+            columns: ["competition_id"]
+            isOneToOne: false
+            referencedRelation: "competitions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      competitions: {
+        Row: {
+          created_at: string | null
+          description: string
+          end_date: string
+          id: string
+          max_tickets: number | null
+          prize: string
+          start_date: string
+          status: string | null
+          ticket_price: number
+          title: string
+          updated_at: string | null
+          winner_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          end_date: string
+          id?: string
+          max_tickets?: number | null
+          prize: string
+          start_date: string
+          status?: string | null
+          ticket_price: number
+          title: string
+          updated_at?: string | null
+          winner_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          end_date?: string
+          id?: string
+          max_tickets?: number | null
+          prize?: string
+          start_date?: string
+          status?: string | null
+          ticket_price?: number
+          title?: string
+          updated_at?: string | null
+          winner_id?: string | null
+        }
+        Relationships: []
+      }
+      donors: {
+        Row: {
+          amount: number
+          created_at: string | null
+          donation_type: string | null
+          email: string
+          id: string
+          name: string
+          payment_method: string | null
+          phone: string | null
+          status: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          donation_type?: string | null
+          email: string
+          id?: string
+          name: string
+          payment_method?: string | null
+          phone?: string | null
+          status?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          donation_type?: string | null
+          email?: string
+          id?: string
+          name?: string
+          payment_method?: string | null
+          phone?: string | null
+          status?: string | null
+        }
+        Relationships: []
+      }
+      impact_metrics: {
+        Row: {
+          created_at: string | null
+          id: string
+          metric_name: string
+          metric_type: string | null
+          metric_value: number
+          updated_at: string | null
+          year: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          metric_name: string
+          metric_type?: string | null
+          metric_value: number
+          updated_at?: string | null
+          year?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          metric_name?: string
+          metric_type?: string | null
+          metric_value?: number
+          updated_at?: string | null
+          year?: number | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +376,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
