@@ -2,6 +2,7 @@ import { Heart, Target, Award, Users } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ActiveTeams from "@/components/ActiveTeams";
 
 const About = () => {
   return (
@@ -118,11 +119,14 @@ const About = () => {
         </div>
       </section>
 
+      {/* Team Section */}
+      <ActiveTeams />
+
       {/* Impact Stats */}
       <section className="py-20 bg-navy-primary">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-white mb-12 text-center">Our Impact</h2>
-          
+
           <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
             <div className="text-center">
               <div className="text-5xl font-bold text-gold-600 mb-2">350+</div>

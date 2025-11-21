@@ -13,6 +13,7 @@ import impact1 from "@/assets/impact-1.jpg";
 import impact2 from "@/assets/impact-2.jpg";
 import impact3 from "@/assets/impact-3.jpg";
 import { useEffect, useState } from "react";
+import ActiveTeams from "@/components/ActiveTeams";
 
 const Home = () => {
   const [countdown, setCountdown] = useState({
@@ -247,95 +248,7 @@ const Home = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-navy-primary">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Our Leadership Team
-              <div className="w-20 h-1 bg-gold-600 mx-auto mt-4" />
-            </h2>
-            <p className="text-gray-400 text-lg">Dedicated professionals committed to transforming lives</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="bg-navy-600 border-gold-800 overflow-hidden">
-              <img src={team1} alt="Dr. Elara Nkala" className="w-full h-64 object-cover" />
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-1">Dr. Elara Nkala</h3>
-                <p className="text-gold-600 text-sm mb-3">Chief Executive Officer</p>
-                <p className="text-gray-400 text-sm mb-4">
-                  Dr. Nkala brings decades of experience in public health and non-profit strategy, leading the foundation's strategic growth and impact.
-                </p>
-                <div className="flex gap-3">
-                  <a href="#" className="text-gold-600 hover:text-gold-400">
-                    <Linkedin className="w-5 h-5" />
-                  </a>
-                  <a href="#" className="text-gold-600 hover:text-gold-400">
-                    <Mail className="w-5 h-5" />
-                  </a>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="bg-navy-600 border-gold-800 overflow-hidden">
-              <img src={team2} alt="Mr. Thabo Sello" className="w-full h-64 object-cover" />
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-1">Mr. Thabo Sello</h3>
-                <p className="text-gold-600 text-sm mb-3">Co-Founder and Director of Strategy</p>
-                <p className="text-gray-400 text-sm mb-4">
-                  A childhood cancer survivor himself, Thabo dedicated his life to ensuring comprehensive support systems exist for the next generation of survivors.
-                </p>
-                <div className="flex gap-3">
-                  <a href="#" className="text-gold-600 hover:text-gold-400">
-                    <Linkedin className="w-5 h-5" />
-                  </a>
-                  <a href="#" className="text-gold-600 hover:text-gold-400">
-                    <Mail className="w-5 h-5" />
-                  </a>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="bg-navy-600 border-gold-800 overflow-hidden">
-              <img src={team3} alt="Ms. Lerato Khumalo" className="w-full h-64 object-cover" />
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-1">Ms. Lerato Khumalo</h3>
-                <p className="text-gold-600 text-sm mb-3">Head of Survivor Services</p>
-                <p className="text-gray-400 text-sm mb-4">
-                  Lerato oversees all program delivery, ensuring every beneficiary receives personalized, high-quality assistance tailored to their needs.
-                </p>
-                <div className="flex gap-3">
-                  <a href="#" className="text-gold-600 hover:text-gold-400">
-                    <Linkedin className="w-5 h-5" />
-                  </a>
-                  <a href="#" className="text-gold-600 hover:text-gold-400">
-                    <Mail className="w-5 h-5" />
-                  </a>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="bg-navy-600 border-gold-800 overflow-hidden">
-              <img src={team4} alt="Mr. Jide Ogunleye" className="w-full h-64 object-cover" />
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-1">Mr. Jide Ogunleye</h3>
-                <p className="text-gold-600 text-sm mb-3">CFO and Treasurer</p>
-                <p className="text-gray-400 text-sm mb-4">
-                  Jide rigorously manages the foundation's finances and compliance, ensuring donor funds are utilized efficiently and transparently.
-                </p>
-                <div className="flex gap-3">
-                  <a href="#" className="text-gold-600 hover:text-gold-400">
-                    <Linkedin className="w-5 h-5" />
-                  </a>
-                  <a href="#" className="text-gold-600 hover:text-gold-400">
-                    <Mail className="w-5 h-5" />
-                  </a>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
+      <ActiveTeams />
 
       {/* Competition Section */}
       <section className="py-20 bg-navy-600">
