@@ -14,6 +14,8 @@ interface Competition {
   id: string;
   title: string;
   prize: string;
+  second_prize?: string;
+  third_prize?: string;
   ticket_price: number;
   status: string;
   end_date: string;
@@ -37,6 +39,8 @@ const CompetitionsTab = () => {
     title: "",
     description: "",
     prize: "",
+    second_prize: "",
+    third_prize: "",
     ticket_price: "",
     max_tickets: "",
     start_date: "",
@@ -76,6 +80,8 @@ const CompetitionsTab = () => {
       title: formData.title,
       description: formData.description,
       prize: formData.prize,
+      second_prize: formData.second_prize,
+      third_prize: formData.third_prize,
       ticket_price: parseFloat(formData.ticket_price),
       max_tickets: parseInt(formData.max_tickets),
       start_date: formData.start_date,
@@ -101,6 +107,8 @@ const CompetitionsTab = () => {
       title: "",
       description: "",
       prize: "",
+      second_prize: "",
+      third_prize: "",
       ticket_price: "",
       max_tickets: "",
       start_date: "",
@@ -210,13 +218,29 @@ const CompetitionsTab = () => {
                     required
                   />
                 </div>
-                <div>
-                  <Label>Prize</Label>
-                  <Input
-                    value={formData.prize}
-                    onChange={(e) => setFormData({ ...formData, prize: e.target.value })}
-                    required
-                  />
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <Label>1st Prize</Label>
+                    <Input
+                      value={formData.prize}
+                      onChange={(e) => setFormData({ ...formData, prize: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label>2nd Prize</Label>
+                    <Input
+                      value={formData.second_prize}
+                      onChange={(e) => setFormData({ ...formData, second_prize: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>3rd Prize</Label>
+                    <Input
+                      value={formData.third_prize}
+                      onChange={(e) => setFormData({ ...formData, third_prize: e.target.value })}
+                    />
+                  </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -273,7 +297,9 @@ const CompetitionsTab = () => {
             <TableHeader>
               <TableRow>
                 <TableHead>Title</TableHead>
-                <TableHead>Prize</TableHead>
+                <TableHead>1st Prize</TableHead>
+                <TableHead>2nd Prize</TableHead>
+                <TableHead>3rd Prize</TableHead>
                 <TableHead>Ticket Price</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>End Date</TableHead>
@@ -285,6 +311,8 @@ const CompetitionsTab = () => {
                 <TableRow key={comp.id}>
                   <TableCell>{comp.title}</TableCell>
                   <TableCell>{comp.prize}</TableCell>
+                  <TableCell>{comp.second_prize || "-"}</TableCell>
+                  <TableCell>{comp.third_prize || "-"}</TableCell>
                   <TableCell>R{comp.ticket_price}</TableCell>
                   <TableCell>
                     <Badge

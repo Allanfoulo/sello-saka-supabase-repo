@@ -8,6 +8,7 @@ import { LogOut } from "lucide-react";
 import ApplicationsTab from "@/components/admin/ApplicationsTab";
 import DonorsTab from "@/components/admin/DonorsTab";
 import CompetitionsTab from "@/components/admin/CompetitionsTab";
+import CompetitionEntriesTab from "@/components/admin/CompetitionEntriesTab";
 import MetricsTab from "@/components/admin/MetricsTab";
 import ContactSubmissionsTab from "@/components/admin/ContactSubmissionsTab";
 
@@ -85,10 +86,11 @@ const Admin = () => {
 
       <main className="container mx-auto p-6">
         <Tabs defaultValue="applications" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 bg-white h-auto">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-6 bg-white h-auto">
             <TabsTrigger value="applications">Applications</TabsTrigger>
             <TabsTrigger value="donors">Donors</TabsTrigger>
             <TabsTrigger value="competitions">Competitions</TabsTrigger>
+            <TabsTrigger value="entries">Entries</TabsTrigger>
             <TabsTrigger value="contact">Contact</TabsTrigger>
             <TabsTrigger value="metrics">Impact Metrics</TabsTrigger>
           </TabsList>
@@ -103,6 +105,10 @@ const Admin = () => {
 
           <TabsContent value="competitions">
             <CompetitionsTab />
+          </TabsContent>
+
+          <TabsContent value="entries">
+            <CompetitionEntriesTab />
           </TabsContent>
 
           <TabsContent value="contact">
