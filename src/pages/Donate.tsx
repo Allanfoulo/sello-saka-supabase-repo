@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Heart, CreditCard, Building, Smartphone, CheckCircle2 } from "lucide-react";
+import { Heart, CreditCard, Smartphone, CheckCircle2 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
@@ -277,44 +277,20 @@ const Donate = () => {
                 {/* Payment Methods */}
                 <div>
                   <Label className="text-lg font-semibold mb-4 block">Payment Method</Label>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <Button
-                      type="button"
-                      variant={paymentMethod === "card" ? "default" : "outline"}
-                      className={`h-20 flex flex-col gap-2 ${paymentMethod === "card" ? "bg-gold-600 text-navy-primary" : ""}`}
-                      onClick={() => setPaymentMethod("card")}
-                    >
-                      <CreditCard className="w-6 h-6" />
-                      <span className="text-xs">Card</span>
-                    </Button>
-                    <Button
-                      type="button"
-                      variant={paymentMethod === "eft" ? "default" : "outline"}
-                      className={`h-20 flex flex-col gap-2 ${paymentMethod === "eft" ? "bg-gold-600 text-navy-primary" : ""}`}
-                      onClick={() => setPaymentMethod("eft")}
-                    >
-                      <Building className="w-6 h-6" />
-                      <span className="text-xs">EFT</span>
-                    </Button>
+                  <div className="max-w-xs mx-auto">
                     <Button
                       type="button"
                       variant={paymentMethod === "payfast" ? "default" : "outline"}
-                      className={`h-20 flex flex-col gap-2 ${paymentMethod === "payfast" ? "bg-gold-600 text-navy-primary" : ""}`}
+                      className={`w-full h-20 flex flex-col gap-2 ${paymentMethod === "payfast" ? "bg-gold-600 text-navy-primary" : ""}`}
                       onClick={() => setPaymentMethod("payfast")}
                     >
                       <Smartphone className="w-6 h-6" />
                       <span className="text-xs">PayFast</span>
                     </Button>
-                    <Button
-                      type="button"
-                      variant={paymentMethod === "paypal" ? "default" : "outline"}
-                      className={`h-20 flex flex-col gap-2 ${paymentMethod === "paypal" ? "bg-gold-600 text-navy-primary" : ""}`}
-                      onClick={() => setPaymentMethod("paypal")}
-                    >
-                      <CreditCard className="w-6 h-6" />
-                      <span className="text-xs">PayPal</span>
-                    </Button>
                   </div>
+                  <p className="text-sm text-gray-600 mt-3 text-center">
+                    💳 Supports Card, EFT, and other payment methods
+                  </p>
                 </div>
 
                 <Button
