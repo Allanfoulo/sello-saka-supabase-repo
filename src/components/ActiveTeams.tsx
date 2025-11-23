@@ -69,7 +69,7 @@ const ActiveTeams = () => {
                         <FadeIn key={member.id} direction="up" delay={0.1 * (index + 1)}>
                             <HoverCard>
                                 <Card className="bg-navy-600 border-gold-800 overflow-hidden h-full">
-                                    <img src={member.image_url} alt={member.name} className="w-full h-64 object-cover" />
+                                    <img src={member.image_url} alt={member.name} className="w-full h-64 object-contain bg-navy-700" />
                                     <div className="p-6">
                                         <h3 className="text-xl font-bold text-white mb-1">{member.name}</h3>
                                         <p className="text-gold-600 text-sm mb-3">{member.role}</p>

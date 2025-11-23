@@ -341,7 +341,7 @@ export type Database = {
           image_url: string | null
           is_active: boolean | null
           linkedin_url: string | null
-          mail_url: string | null
+          email: string | null
           name: string
           role: string
         }
@@ -352,7 +352,7 @@ export type Database = {
           image_url?: string | null
           is_active?: boolean | null
           linkedin_url?: string | null
-          mail_url?: string | null
+          email?: string | null
           name: string
           role: string
         }
@@ -363,7 +363,7 @@ export type Database = {
           image_url?: string | null
           is_active?: boolean | null
           linkedin_url?: string | null
-          mail_url?: string | null
+          email?: string | null
           name?: string
           role?: string
         }
