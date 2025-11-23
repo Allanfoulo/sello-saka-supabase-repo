@@ -75,7 +75,7 @@ const Home = () => {
             </div>
           </FadeIn>
 
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="mt-16 animate-bounce flex justify-center">
             <ChevronDown className="w-8 h-8 text-gold-600" />
           </div>
         </div>
