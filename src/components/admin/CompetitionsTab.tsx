@@ -9,6 +9,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Upload, X } from "lucide-react";
 
 interface Competition {
   id: string;
@@ -19,6 +20,11 @@ interface Competition {
   ticket_price: number;
   status: string;
   end_date: string;
+  badge_text?: string;
+  subtitle?: string;
+  hero_image_url?: string;
+  footer_text_1?: string;
+  footer_text_2?: string;
 }
 
 interface CompetitionEntry {
@@ -45,7 +51,12 @@ const CompetitionsTab = () => {
     max_tickets: "",
     start_date: "",
     end_date: "",
+    badge_text: "",
+    subtitle: "",
+    footer_text_1: "Secure & Transparent",
+    footer_text_2: "Verified Entries",
   });
+  const [heroImageFile, setHeroImageFile] = useState<File | null>(null);
   const [selectedCompetition, setSelectedCompetition] = useState<string | null>(null);
   const [entries, setEntries] = useState<CompetitionEntry[]>([]);
   const [showEntries, setShowEntries] = useState(false);
@@ -73,8 +84,42 @@ const CompetitionsTab = () => {
     setCompetitions(data || []);
   };
 
+  const handleHeroImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setHeroImageFile(e.target.files[0]);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    let heroImageUrl = null;
+
+    if (heroImageFile) {
+      const fileExt = heroImageFile.name.split('.').pop();
+      const fileName = `${Date.now()}_${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { error: uploadError, data } = await supabase.storage
+        .from('competitions')
+        .upload(filePath, heroImageFile);
+
+      if (uploadError) {
+        console.error("Error uploading image:", uploadError);
+        toast({
+          title: "Error",
+          description: "Failed to upload hero image",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('competitions')
+        .getPublicUrl(filePath);
+
+      heroImageUrl = publicUrl;
+    }
 
     const { error } = await supabase.from("competitions").insert({
       title: formData.title,
@@ -87,6 +132,11 @@ const CompetitionsTab = () => {
       start_date: formData.start_date,
       end_date: formData.end_date,
       status: "active",
+      badge_text: formData.badge_text,
+      subtitle: formData.subtitle,
+      hero_image_url: heroImageUrl,
+      footer_text_1: formData.footer_text_1,
+      footer_text_2: formData.footer_text_2,
     });
 
     if (error) {
@@ -113,7 +163,12 @@ const CompetitionsTab = () => {
       max_tickets: "",
       start_date: "",
       end_date: "",
+      badge_text: "",
+      subtitle: "",
+      footer_text_1: "Secure & Transparent",
+      footer_text_2: "Verified Entries",
     });
+    setHeroImageFile(null);
     fetchCompetitions();
   };
 
@@ -217,6 +272,56 @@ const CompetitionsTab = () => {
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     required
                   />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label>Badge Text</Label>
+                    <Input
+                      value={formData.badge_text}
+                      onChange={(e) => setFormData({ ...formData, badge_text: e.target.value })}
+                      placeholder="e.g., Limited Time Offer"
+                    />
+                  </div>
+                  <div>
+                    <Label>Subtitle</Label>
+                    <Input
+                      value={formData.subtitle}
+                      onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
+                      placeholder="e.g., Win a Family Wellness Getaway!"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <Label>Hero Image</Label>
+                  <div className="mt-2 flex items-center gap-4">
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleHeroImageChange}
+                      className="cursor-pointer"
+                    />
+                    {heroImageFile && (
+                      <span className="text-sm text-green-600 flex items-center gap-1">
+                        <Upload className="w-4 h-4" /> {heroImageFile.name}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label>Footer Text 1</Label>
+                    <Input
+                      value={formData.footer_text_1}
+                      onChange={(e) => setFormData({ ...formData, footer_text_1: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <Label>Footer Text 2</Label>
+                    <Input
+                      value={formData.footer_text_2}
+                      onChange={(e) => setFormData({ ...formData, footer_text_2: e.target.value })}
+                    />
+                  </div>
                 </div>
                 <div className="grid grid-cols-3 gap-4">
                   <div>

@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Sparkles, Upload, CheckCircle2, Trophy } from "lucide-react";
+import { Sparkles, Upload, CheckCircle2, Trophy, ShieldCheck, Users } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { FadeIn } from "@/components/animations/FadeIn";
@@ -19,6 +19,11 @@ interface ActiveCompetitionProps {
         prize_third: string | null;
         entry_fee: number;
         end_date: string;
+        badge_text?: string | null;
+        subtitle?: string | null;
+        hero_image_url?: string | null;
+        footer_text_1?: string | null;
+        footer_text_2?: string | null;
     };
 }
 
@@ -134,27 +139,88 @@ const ActiveCompetition = ({ competition }: ActiveCompetitionProps) => {
     return (
         <div>
             {/* Hero */}
-            <section className="bg-navy-primary py-20">
-                <div className="container mx-auto px-4 text-center">
-                    <FadeIn direction="down">
-                        <div className="inline-block px-4 py-2 bg-gold-600/20 border border-gold-600 rounded-full mb-6">
-                            <div className="flex items-center gap-2">
-                                <Sparkles className="w-5 h-5 text-gold-600" />
-                                <span className="text-gold-600 font-semibold">Exclusive Fundraising Event</span>
-                            </div>
+            <section className="bg-navy-primary py-20 relative overflow-hidden">
+                <div className="container mx-auto px-4">
+                    <div className="grid lg:grid-cols-2 gap-12 items-center">
+                        <div className="text-left z-10">
+                            <FadeIn direction="down">
+                                <div className="inline-flex items-center gap-2 px-4 py-2 bg-navy-800/50 border border-gold-600/30 rounded-full mb-8 backdrop-blur-sm">
+                                    <Sparkles className="w-4 h-4 text-gold-400" />
+                                    <span className="text-gold-400 text-sm font-medium tracking-wide uppercase">
+                                        {competition.badge_text || "Limited Time Offer"}
+                                    </span>
+                                </div>
+                            </FadeIn>
+
+                            <FadeIn direction="up" delay={0.2}>
+                                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                                    {competition.title}
+                                </h1>
+                            </FadeIn>
+
+                            <FadeIn direction="up" delay={0.3}>
+                                <h2 className="text-2xl md:text-3xl text-gold-100 font-medium mb-6">
+                                    {competition.subtitle || "Win Big while making a difference!"}
+                                </h2>
+                            </FadeIn>
+
+                            <FadeIn direction="up" delay={0.4}>
+                                <p className="text-lg text-gray-300 mb-8 max-w-xl leading-relaxed">
+                                    {competition.description}
+                                </p>
+                            </FadeIn>
+
+                            <FadeIn direction="up" delay={0.5}>
+                                <div className="flex flex-col sm:flex-row gap-4 mb-12">
+                                    <Button
+                                        className="bg-gold-600 hover:bg-gold-500 text-navy-950 font-bold text-lg px-8 py-6 h-auto rounded-lg transition-all hover:scale-105"
+                                        onClick={() => document.getElementById('entry-form')?.scrollIntoView({ behavior: 'smooth' })}
+                                    >
+                                        <Trophy className="w-5 h-5 mr-2" />
+                                        Enter Now
+                                    </Button>
+                                    <Button
+                                        variant="outline"
+                                        className="border-gray-600 text-gray-300 hover:text-white hover:border-white hover:bg-white/5 font-semibold text-lg px-8 py-6 h-auto rounded-lg transition-all"
+                                        onClick={() => window.location.href = '/'}
+                                    >
+                                        Back to Home
+                                    </Button>
+                                </div>
+                            </FadeIn>
+
+                            <FadeIn direction="up" delay={0.6}>
+                                <div className="flex items-center gap-8 text-sm text-gray-400 font-medium">
+                                    <div className="flex items-center gap-2">
+                                        <ShieldCheck className="w-5 h-5 text-gold-600" />
+                                        <span>{competition.footer_text_1 || "Secure & Transparent"}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <Users className="w-5 h-5 text-gold-600" />
+                                        <span>{competition.footer_text_2 || "Verified Entries"}</span>
+                                    </div>
+                                </div>
+                            </FadeIn>
                         </div>
-                    </FadeIn>
-                    <FadeIn direction="down" delay={0.2}>
-                        <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                            {competition.title}
-                        </h1>
-                    </FadeIn>
-                    <FadeIn direction="up" delay={0.4}>
-                        <div className="w-20 h-1 bg-gold-600 mx-auto mb-6" />
-                        <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-                            {competition.description}
-                        </p>
-                    </FadeIn>
+
+                        <div className="relative lg:h-[600px] h-[400px] rounded-2xl overflow-hidden group">
+                            <FadeIn direction="left" delay={0.4} className="h-full w-full">
+                                <div className="absolute inset-0 bg-gradient-to-t from-navy-primary/80 via-transparent to-transparent z-10" />
+                                <div className="absolute inset-0 border-2 border-gold-600/20 rounded-2xl z-20 pointer-events-none" />
+                                {competition.hero_image_url ? (
+                                    <img
+                                        src={competition.hero_image_url}
+                                        alt={competition.title}
+                                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                                    />
+                                ) : (
+                                    <div className="w-full h-full bg-navy-800 flex items-center justify-center">
+                                        <Trophy className="w-24 h-24 text-gold-600/20" />
+                                    </div>
+                                )}
+                            </FadeIn>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -278,7 +344,7 @@ const ActiveCompetition = ({ competition }: ActiveCompetitionProps) => {
                         </FadeIn>
 
                         <FadeIn direction="up" delay={0.2}>
-                            <Card className="border-2 border-navy-600 p-8">
+                            <Card className="border-2 border-navy-600 p-8" id="entry-form">
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     <div>
                                         <Label htmlFor="name">Full Name</Label>
