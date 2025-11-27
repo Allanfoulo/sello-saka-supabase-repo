@@ -48,7 +48,7 @@ const Home = () => {
 
           <FadeIn direction="up" delay={0.6} duration={0.8}>
             <p className="text-gray-400 mb-12 max-w-2xl mx-auto text-lg">
-              The Sello Saka Foundation is dedicated to providing comprehensive,
+              Sello Saka Foundation is dedicated to providing comprehensive,
               long-term support for survivors of early childhood cancer,
               addressing late effects and promoting holistic recovery.
             </p>
